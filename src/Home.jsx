@@ -1,10 +1,11 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Home.css';
 
 function App() {
+
     const [users, setUsers] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [validated, setValidated] = useState(false);
@@ -17,6 +18,10 @@ function App() {
     });
     const [deleteUserId, setDeleteUserId] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const [searchQuery, setSearchQuery] = useState('')
+
+
 
     // Fetch users from the API when the component mounts
     useEffect(() => {
@@ -120,160 +125,188 @@ function App() {
             })
             .catch((error) => console.error("Error deleting user:", error));
     };
+    // Search filter
+    const handleSearch = (e) => {
+        const query = e.target.value.toLowerCase();
+        setSearchQuery(query);
+    
+        // Filter users by name
+        const filtered = users.filter((user) =>{ return(
 
-    return (
-        <div className="App">
-            <h1>User List</h1>
+            user.name.toLowerCase().includes(query)
+        )
+         
+        }
+          
+        );
+        if(filtered){
+            setUsers(filtered);
+        }
+      
+        
+    
 
-            {/* Button to open the modal for adding new user */}
-            <Button onClick={() => handleOpenModal()}>Add New User</Button>
 
-            {/* Modal for adding or editing a user */}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{editingUserId ? "Edit User" : "Add New User"}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                        <Form.Group controlId="formName">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="name"
-                                value={newUser.name}
-                                onChange={handleChange}
-                                placeholder="Enter name"
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a name.
-                            </Form.Control.Feedback>
-                        </Form.Group>
+        
+    
 
-                        <Form.Group controlId="formEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                name="email"
-                                value={newUser.email}
-                                onChange={handleChange}
-                                placeholder="Enter email"
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a valid email.
-                            </Form.Control.Feedback>
-                        </Form.Group>
+}
 
-                        <Form.Group controlId="formPhone">
-                            <Form.Label>Phone</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="phone"
-                                value={newUser.phone}
-                                onChange={handleChange}
-                                placeholder="Enter phone number"
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a phone number.
-                            </Form.Control.Feedback>
-                        </Form.Group>
+return (
+    <div className="App">
+        <h1>User List</h1>
 
-                        <Form.Group controlId="formWebsite">
-                            <Form.Label>Website</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="website"
-                                value={newUser.website}
-                                onChange={handleChange}
-                                placeholder="Enter website"
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a website.
-                            </Form.Control.Feedback>
-                        </Form.Group>
+        {/* Button to open the modal for adding new user */}
+        <Button onClick={() => handleOpenModal()}>Add New User</Button>
 
-                        <Button variant="primary" type="submit">
-                            {editingUserId ? "Update User" : "Add User"}
-                        </Button>
-                    </Form>
-                </Modal.Body>
-            </Modal>
+        {/* Modal for adding or editing a user */}
+        <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal.Header closeButton>
+                <Modal.Title>{editingUserId ? "Edit User" : "Add New User"}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form.Group controlId="formName">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="name"
+                            value={newUser.name}
+                            onChange={handleChange}
+                            placeholder="Enter name"
+                            required
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            Please provide a name.
+                        </Form.Control.Feedback>
+                    </Form.Group>
 
-            {/* Delete Confirmation Modal */}
-            <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirm Delete</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-                        Cancel
+                    <Form.Group controlId="formEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            name="email"
+                            value={newUser.email}
+                            onChange={handleChange}
+                            placeholder="Enter email"
+                            required
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            Please provide a valid email.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group controlId="formPhone">
+                        <Form.Label>Phone</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="phone"
+                            value={newUser.phone}
+                            onChange={handleChange}
+                            placeholder="Enter phone number"
+                            required
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            Please provide a phone number.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group controlId="formWebsite">
+                        <Form.Label>Website</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="website"
+                            value={newUser.website}
+                            onChange={handleChange}
+                            placeholder="Enter website"
+                            required
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            Please provide a website.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit">
+                        {editingUserId ? "Update User" : "Add User"}
                     </Button>
-                    <Button variant="danger" onClick={handleDeleteUser}>
-                        Delete
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+                </Form>
+            </Modal.Body>
+        </Modal>
 
-            {/* Display the list of users in a table */}
-            {users.length > 0 ? (
-                <table className="table-striped" border="1" style={{ width: "100%", marginTop: "20px" }}>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th  className="dis-none">Email</th>
-                            <th className="dis-none">Phone</th>
-                            <th  className="dis-none" >Website</th>
-                            <th>Actions</th>
+        {/* Delete Confirmation Modal */}
+        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+            <Modal.Header closeButton>
+                <Modal.Title>Confirm Delete</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                    Cancel
+                </Button>
+                <Button variant="danger" onClick={handleDeleteUser}>
+                    Delete
+                </Button>
+            </Modal.Footer>
+        </Modal>
+        <br /><br />
+        <input type="text" value={searchQuery} placeholder="Search " onChange={handleSearch} />
+
+        {/* Display the list of users in a table */}
+        {users.length > 0 ? (
+            <table className="table-striped" border="1" style={{ width: "100%", marginTop: "20px" }}>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th className="dis-none">Email</th>
+                        <th className="dis-none">Phone</th>
+                        <th className="dis-none" >Website</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {users.map((user) => (
+                        <tr key={user.id}>
+                            <td>{user.id}</td>
+                            <td>{user.name}</td>
+                            <td className="dis-none">{user.email}</td>
+                            <td className="dis-none">{user.phone}</td>
+                            <td className="dis-none">{user.website}</td>
+                            <td>
+                                <Link to={`/user/${user.id}`}>
+                                    <Button variant="info" className="myButton">View Details</Button>
+                                </Link>
+                            </td>
+                            <td>
+                                {/* Edit button */}
+
+                                <Button
+
+                                    variant="warning"
+                                    onClick={() => handleOpenModal(user)}
+                                    style={{ marginRight: "10px " }}
+                                    className="myButton"
+                                >
+                                    Edit
+                                </Button>
+                                {/* Delete button */}
+                                <Button
+                                    variant="danger"
+                                    onClick={() => handleDeleteClick(user.id)}
+                                    className="myButton"
+                                >
+                                    Delete
+                                </Button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {users.map((user) => (
-                            <tr key={user.id}>
-                                <td>{user.id}</td>
-                                <td>{user.name}</td>
-                                <td  className="dis-none">{user.email}</td>
-                                <td  className="dis-none">{user.phone}</td>
-                                <td  className="dis-none">{user.website}</td>
-                                <td>
-                  <Link to={`/user/${user.id}`}>
-                    <Button variant="info" className="myButton">View Details</Button>
-                  </Link>
-                </td>
-                                <td>
-                                    {/* Edit button */}
-
-                                    <Button
-                                  
-                                        variant="warning"
-                                        onClick={() => handleOpenModal(user)}
-                                        style={{ marginRight: "10px " }}
-                                          className="myButton"
-                                    >
-                                        Edit
-                                    </Button>
-                                    {/* Delete button */}
-                                    <Button
-                                        variant="danger"
-                                        onClick={() => handleDeleteClick(user.id)}
-                                          className="myButton"
-                                    >
-                                        Delete
-                                    </Button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>Loading users...</p>
-            )}
-        </div>
-    );
+                    ))}
+                </tbody>
+            </table>
+        ) : (
+            <p>Loading users...</p>
+        )}
+    </div>
+);
 }
 
 export default App;
