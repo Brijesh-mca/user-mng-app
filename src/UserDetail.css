@@ -1,0 +1,15 @@
+.card{
+    background-image: linear-gradient(to right , white,rgba(28, 186, 235, 0.41)); 
+    display: flex;
+    height: 100vh !important;
+  
+    align-items: center;
+}
+.card h1,h2{
+    text-decoration:underline;
+    margin-bottom: 20px;
+
+}
+.inside-card{
+    margin: 23px;
+}

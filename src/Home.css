@@ -1,10 +1,11 @@
 
 .table-striped tbody tr:nth-child(even) {
-  background-color: #23a4dc30 !important; 
+  background-image: linear-gradient(to right , white,rgba(28, 186, 235, 0.41)); 
 }
 .table-striped tbody tr:nth-child(odd) {
-  background-color: #b9bbcb38 !important; 
+  background-image: linear-gradient(to right ,rgba(28, 186, 235, 0.41),white);
 }
+
 
 @media (max-width: 700px) {
   .myButton{

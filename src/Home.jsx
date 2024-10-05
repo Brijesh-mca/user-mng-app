@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import {Link} from 'react-router-dom'
-import './App.css';
+import './Home.css';
 
 function App() {
     const [users, setUsers] = useState([]);
