@@ -133,7 +133,7 @@ function App() {
         setSearchQuery(query);
 
         // Filter users by name
-        setUsers(users.filter((user) => (user.name.toLowerCase().includes(query) )));
+        setUsers(users.filter((user) => (user.name.toLowerCase().includes(query))));
         // const filtered = users.filter((user) => {
         //     return (
 
@@ -275,28 +275,28 @@ function App() {
             </div>
             {/* Display the list of users in a table */}
             {users.length > 0 ? (
-                <table className="table-striped" border="1" style={{ width: "100%", marginTop: "20px" }}>
+                <table className="table-striped text-center" border="1" style={{ width: "100%", marginTop: "20px" }}>
                     <thead>
-                        <tr>
+                        <tr className="text-center">
                             <th>ID</th>
                             <th>Name</th>
                             <th className="dis-none">Email</th>
                             <th className="dis-none">Phone</th>
                             <th className="dis-none" >Website</th>
-                            <th>Actions</th>
+                            <th className="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((user) => (
-                            <tr key={user.id}>
-                                <td>{user.id}</td>
-                                <td>{user.name}</td>
+                            <tr className="text-center" key={user.id}>
+                                <td className="text-center">{user.id}</td>
+                                <td className="text-center">{user.name}</td>
                                 <td className="dis-none">{user.email}</td>
                                 <td className="dis-none">{user.phone}</td>
                                 <td className="dis-none">{user.website}</td>
                                 <td>
                                     <Link to={`/user/${user.id}`}>
-                                        <Button variant="info" className="myButton">View Details</Button>
+                                        <Button className="text-center myButton" style={{ marginRight: "4px " }} variant="info" >View Details</Button>
                                     </Link>
                                 </td>
                                 <td>
@@ -306,7 +306,7 @@ function App() {
 
                                         variant="warning"
                                         onClick={() => handleOpenModal(user)}
-                                        style={{ marginRight: "10px " }}
+                                        style={{ marginRight: "7px " }}
                                         className="myButton"
                                     >
                                         Edit

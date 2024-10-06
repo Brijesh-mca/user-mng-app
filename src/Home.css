@@ -9,9 +9,10 @@
 
 @media (max-width: 700px) { 
   .myButton{
-    padding: 2px 20px !important;
-    font-size: 16px !important;
-    margin-left: 10px;
+    padding: 6px 3px !important;
+    font-size: 15px !important;
+    
+    
   }
   table {
     font-size: 16px;
